@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">QiitaView</string>
+
+    <!-- ボトムナビゲーションバーの文字列 -->
+    <string name="nav_feed">フィード</string>
+    <string name="nav_setting">設定</string>
 </resources>
