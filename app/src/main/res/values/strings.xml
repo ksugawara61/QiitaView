@@ -13,5 +13,6 @@
     <string name="pref_opinion">ご意見・ご要望</string>
     <string name="pref_license">ライセンス</string>
     <string name="pref_version">バージョン情報</string>
+    <string name="opinion_form_url">https://docs.google.com/forms/d/e/1FAIpQLSc8ze6M6_VY4Xr5sDIcQehWN7uLBpDm8xV-0_gVO5hTjkKvIQ/viewform?usp=sf_link</string>
 
 </resources>
