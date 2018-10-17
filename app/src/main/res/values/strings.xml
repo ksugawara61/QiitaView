@@ -4,4 +4,15 @@
     <!-- ボトムナビゲーションバーの文字列 -->
     <string name="nav_feed">フィード</string>
     <string name="nav_setting">設定</string>
+
+    <!-- 設定画面用 -->
+    <string name="pref_opinion_key">pref_opinion</string>
+    <string name="pref_license_key">pref_license</string>
+    <string name="pref_version_key">pref_version</string>
+
+    <string name="pref_opinion">ご意見・ご要望</string>
+    <string name="pref_license">ライセンス</string>
+    <string name="pref_version">バージョン情報</string>
+    <string name="opinion_form_url">https://docs.google.com/forms/d/e/1FAIpQLSc8ze6M6_VY4Xr5sDIcQehWN7uLBpDm8xV-0_gVO5hTjkKvIQ/viewform?usp=sf_link</string>
+
 </resources>
