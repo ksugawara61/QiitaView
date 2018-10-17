@@ -1,8 +1,10 @@
 package net.k2o_info.qiitaview.view.fragment
 
 import android.content.Context
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,7 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.k2o_info.qiitaview.R
+import net.k2o_info.qiitaview.databinding.FragmentArticleListBinding
 import net.k2o_info.qiitaview.view.ui.ArticleRecyclerAdapter
+import timber.log.Timber
 
 /**
  * 記事リスト用フラグメント
@@ -51,8 +55,8 @@ class ArticleListFragment : Fragment() {
      * @return フラグメントを描画したビュー
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_article_list, container, false)
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        val binding: FragmentArticleListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_article_list, container, false)
+        val recyclerView: RecyclerView = binding.recyclerView
         val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
 
@@ -64,7 +68,14 @@ class ArticleListFragment : Fragment() {
         val recyclerAdapter = ArticleRecyclerAdapter(context!!)
         recyclerView.adapter = recyclerAdapter
 
-        return view
+        // スワイプダウン時のリフレッシュ処理
+        val swipeContainer: SwipeRefreshLayout = binding.swipeContainer
+        swipeContainer.setOnRefreshListener {
+            Timber.d("onRefresh")
+            swipeContainer.isRefreshing = !swipeContainer.isRefreshing
+        }
+
+        return binding.root
     }
 
     /**
