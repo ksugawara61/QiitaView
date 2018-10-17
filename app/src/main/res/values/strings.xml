@@ -4,4 +4,10 @@
     <!-- ボトムナビゲーションバーの文字列 -->
     <string name="nav_feed">フィード</string>
     <string name="nav_setting">設定</string>
+
+    <!-- 設定画面用 -->
+    <string name="nav_opinion">ご意見・ご要望</string>
+    <string name="nav_license">ライセンス</string>
+    <string name="nav_version">バージョン情報</string>
+
 </resources>
