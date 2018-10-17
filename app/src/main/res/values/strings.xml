@@ -6,8 +6,12 @@
     <string name="nav_setting">設定</string>
 
     <!-- 設定画面用 -->
-    <string name="nav_opinion">ご意見・ご要望</string>
-    <string name="nav_license">ライセンス</string>
-    <string name="nav_version">バージョン情報</string>
+    <string name="pref_opinion_key">pref_opinion</string>
+    <string name="pref_license_key">pref_license</string>
+    <string name="pref_version_key">pref_version</string>
+
+    <string name="pref_opinion">ご意見・ご要望</string>
+    <string name="pref_license">ライセンス</string>
+    <string name="pref_version">バージョン情報</string>
 
 </resources>

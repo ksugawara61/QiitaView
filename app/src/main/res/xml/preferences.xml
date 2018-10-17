@@ -6,9 +6,9 @@
         android:layout="@layout/setting_category">
 
         <Preference
-            android:key="preference_opinion"
+            android:key="@string/pref_opinion_key"
             android:icon="@drawable/ic_comment_grey_700_24dp"
-            android:title="@string/nav_opinion"
+            android:title="@string/pref_opinion"
             android:layout="@layout/setting_item"/>
 
     </PreferenceCategory>
@@ -18,15 +18,15 @@
         android:layout="@layout/setting_category">
 
         <Preference
-            android:key="preference_license"
+            android:key="@string/pref_license_key"
             android:icon="@drawable/ic_copyright_grey_700_24dp"
-            android:title="@string/nav_license"
+            android:title="@string/pref_license"
             android:layout="@layout/setting_item"/>
 
         <Preference
-            android:key="preference_version"
+            android:key="@string/pref_version_key"
             android:icon="@drawable/ic_info_outline_grey_700_24dp"
-            android:title="@string/nav_version"
+            android:title="@string/pref_version"
             android:summary="0"
             android:layout="@layout/setting_item"/>
 
