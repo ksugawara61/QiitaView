@@ -79,10 +79,9 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
         val viewModel = ViewModelProviders.of(this).get(ArticleListViewModel::class.java)
         viewModel.getArticleList().observe(this, Observer { list: List<QiitaArticle>? ->
 
+            // リストの更新があった場合にrecyclerAdapterをアップデート
             if (list != null) {
-                for (item in list.listIterator()) {
-                    Timber.d("${item.id} ${item.title}, ${item.url} ${item.likesCount} ${item.commentsCount}")
-                }
+                recyclerAdapter.updateItems(list)
             }
         })
 

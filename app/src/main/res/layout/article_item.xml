@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="article"
+            type="net.k2o_info.qiitaview.model.pojo.QiitaArticle"/>
+    </data>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +60,7 @@
 
         <TextView
             android:id="@+id/title"
-            android:text="This space is text area for title of Qiita article. You can read detail when you tap it. Have a great time."
+            android:text="@{article.title}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="14sp"
@@ -70,7 +76,7 @@
 
         <TextView
             android:id="@+id/likes_count"
-            android:text="2"
+            android:text="@{Integer.toString(article.likesCount)}"
             android:drawableStart="@drawable/ic_favorite_border_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
@@ -90,7 +96,7 @@
 
         <TextView
             android:id="@+id/comments_count"
-            android:text="2"
+            android:text="@{Integer.toString(article.commentsCount)}"
             android:drawableStart="@drawable/ic_comment_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
