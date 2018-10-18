@@ -3,15 +3,22 @@ package net.k2o_info.qiitaview.view.ui
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import net.k2o_info.qiitaview.R
+import timber.log.Timber
 import java.util.*
 
-class ArticleRecyclerAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener) : RecyclerView.Adapter<ViewHolder>() {
 
-    private var inflater: LayoutInflater = LayoutInflater.from(context)
-    private var context: Context = context
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val context: Context = context
+    private val listener: ArticleRecyclerListener = listener
     private var articleList: List<String> = Arrays.asList("sampleA", "sampleB")//emptyList()
+
+    interface ArticleRecyclerListener {
+        fun onRecyclerClickedListener(view: View, position: Int)
+    }
 
     /**
      * 新規ViewHolderが渡されたときに呼ばれる
@@ -32,6 +39,11 @@ class ArticleRecyclerAdapter(context: Context) : RecyclerView.Adapter<ViewHolder
      */
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
+        // タップ時の処理
+        viewHolder.getView().setOnClickListener{
+            Timber.d("Article of position $position is clicked")
+            listener.onRecyclerClickedListener(it, position)
+        }
     }
 
     /**
