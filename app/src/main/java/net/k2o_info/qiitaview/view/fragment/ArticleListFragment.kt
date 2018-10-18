@@ -75,13 +75,6 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
         val recyclerAdapter = ArticleRecyclerAdapter(context!!, this)
         recyclerView.adapter = recyclerAdapter
 
-        // スワイプダウン時のリフレッシュ処理
-        val swipeContainer: SwipeRefreshLayout = binding.swipeContainer
-        swipeContainer.setOnRefreshListener {
-            Timber.d("onRefresh")
-            swipeContainer.isRefreshing = !swipeContainer.isRefreshing
-        }
-
         // ViewModelの設定
         val viewModel = ViewModelProviders.of(this).get(ArticleListViewModel::class.java)
         viewModel.getArticleList().observe(this, Observer { list: List<QiitaArticle>? ->
@@ -92,6 +85,14 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
                 }
             }
         })
+
+        // スワイプダウン時のリフレッシュ処理
+        val swipeContainer: SwipeRefreshLayout = binding.swipeContainer
+        swipeContainer.setOnRefreshListener {
+            Timber.d("onRefresh")
+            viewModel.refreshArticleList()
+            swipeContainer.isRefreshing = !swipeContainer.isRefreshing
+        }
 
         return binding.root
     }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.model.pojo.QiitaArticle
 import net.k2o_info.qiitaview.model.service.QiitaApiService
 import okhttp3.OkHttpClient
@@ -44,7 +45,7 @@ class AppRepository(application: Application) {
 
         val retrofit = Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://qiita.com")
+                .baseUrl(application.getString(R.string.qiita_api_base_url))
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
@@ -53,15 +54,21 @@ class AppRepository(application: Application) {
 
     /**
      * Qiitaの記事を取得
+     *
+     * @param mutableArticleList 記事リスト
+     * @param page ページ番号
+     * @param perPage ページ辺りの記事数
+     * @param query 検索クエリ
+     * @return 記事リスト
      */
-    fun getArticle(data: MutableLiveData<List<QiitaArticle>>): LiveData<List<QiitaArticle>> {
+    fun getArticle(mutableArticleList: MutableLiveData<List<QiitaArticle>>, page: Int, perPage: Int, query: String?): LiveData<List<QiitaArticle>> {
 
-        val call = qiitaApiService.getItems(1, 20, "title:javascript")
+        val call = qiitaApiService.getItems(page, perPage, query)
         call.enqueue(object : Callback<List<QiitaArticle>> {
             override fun onResponse(call: Call<List<QiitaArticle>>, response: retrofit2.Response<List<QiitaArticle>>) {
                 if (response.isSuccessful && response.body() != null) {
                     Timber.d("success: ${response.body()}")
-                    data.postValue(response.body())
+                    mutableArticleList.postValue(response.body())
                 }
             }
 
@@ -70,7 +77,7 @@ class AppRepository(application: Application) {
             }
         })
 
-        return data
+        return mutableArticleList
     }
 
 }

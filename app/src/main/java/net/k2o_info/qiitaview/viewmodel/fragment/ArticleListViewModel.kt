@@ -9,15 +9,23 @@ import net.k2o_info.qiitaview.model.pojo.QiitaArticle
 
 class ArticleListViewModel(application: Application): AndroidViewModel(application) {
 
-    private var qiitaArticleList: LiveData<List<QiitaArticle>>
-    private var mutableQiitaArticleList: MutableLiveData<List<QiitaArticle>> = MutableLiveData()
+    private val appRepository: AppRepository = AppRepository(application)
+    private val mutableArticleList: MutableLiveData<List<QiitaArticle>> = MutableLiveData()
+    private var articleList: LiveData<List<QiitaArticle>>
+
 
     /**
      * コンストラクタ
      */
     init {
-        val appRepository = AppRepository(application)
-        qiitaArticleList = appRepository.getArticle(mutableQiitaArticleList)
+        articleList = appRepository.getArticle(mutableArticleList, 1, 20, null)
+    }
+
+    /**
+     * 記事リストをリフレッシュ
+     */
+    fun refreshArticleList() {
+        articleList = appRepository.getArticle(mutableArticleList, 1, 20, null)
     }
 
     /**
@@ -26,7 +34,7 @@ class ArticleListViewModel(application: Application): AndroidViewModel(applicati
      * @return 記事リスト
      */
     fun getArticleList(): LiveData<List<QiitaArticle>> {
-        return qiitaArticleList
+        return articleList
     }
 
 }

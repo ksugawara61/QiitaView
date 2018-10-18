@@ -17,11 +17,11 @@ interface QiitaApiService {
      * @param perPage ページ辺りの記事数
      * @param query 検索クエリ
      */
-    @GET("/api/v2/items")
+    @GET("v2/items")
     fun getItems(
             @Query(value = "page", encoded = true) page: Int,
             @Query(value = "per_page", encoded = true) perPage: Int,
-            @Query(value = "query", encoded = true) query: String
+            @Query(value = "query", encoded = true) query: String?
     ): Call<List<QiitaArticle>>
 
 }
