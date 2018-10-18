@@ -1,6 +1,8 @@
 package net.k2o_info.qiitaview.model
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import net.k2o_info.qiitaview.model.pojo.QiitaArticle
@@ -52,13 +54,14 @@ class AppRepository(application: Application) {
     /**
      * Qiitaの記事を取得
      */
-    fun getArticle() {
+    fun getArticle(data: MutableLiveData<List<QiitaArticle>>): LiveData<List<QiitaArticle>> {
 
         val call = qiitaApiService.getItems(1, 20, "title:javascript")
         call.enqueue(object : Callback<List<QiitaArticle>> {
             override fun onResponse(call: Call<List<QiitaArticle>>, response: retrofit2.Response<List<QiitaArticle>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful && response.body() != null) {
                     Timber.d("success: ${response.body()}")
+                    data.postValue(response.body())
                 }
             }
 
@@ -67,6 +70,7 @@ class AppRepository(application: Application) {
             }
         })
 
+        return data
     }
 
 }

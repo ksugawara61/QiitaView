@@ -1,5 +1,6 @@
 package net.k2o_info.qiitaview.view.fragment
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.databinding.FragmentArticleListBinding
+import net.k2o_info.qiitaview.model.pojo.QiitaArticle
 import net.k2o_info.qiitaview.view.ui.ArticleRecyclerAdapter
 import net.k2o_info.qiitaview.viewmodel.fragment.ArticleListViewModel
 import timber.log.Timber
@@ -82,6 +84,14 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
 
         // ViewModelの設定
         val viewModel = ViewModelProviders.of(this).get(ArticleListViewModel::class.java)
+        viewModel.getArticleList().observe(this, Observer { list: List<QiitaArticle>? ->
+
+            if (list != null) {
+                for (item in list.listIterator()) {
+                    Timber.d("${item.id} ${item.title}, ${item.url} ${item.likesCount} ${item.commentsCount}")
+                }
+            }
+        })
 
         return binding.root
     }
