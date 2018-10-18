@@ -5,5 +5,6 @@ class QiitaArticle (
         val title: String,
         val url: String,
         val likesCount: Int,
-        val commentsCount: Int
+        val commentsCount: Int,
+        val user: QiitaUser
 )
