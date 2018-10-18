@@ -69,6 +69,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        // 起動時は記事リストを表示
+        bnb.selectTab(BOTTOM_NAV_ARTICLE)
     }
 
 }
