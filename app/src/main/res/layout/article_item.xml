@@ -9,10 +9,10 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/profile_image"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_launcher_round"
             android:scaleType="centerCrop"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="@dimen/layout_margin_middle"
             app:riv_corner_radius="50dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,12 +53,12 @@
 
         <TextView
             android:id="@+id/title"
-            android:text="This space is text area for title of Qiita article."
+            android:text="This space is text area for title of Qiita article. You can read detail when you tap it. Have a great time."
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:paddingStart="@dimen/layout_padding_short"
             android:paddingEnd="@dimen/layout_padding_short"
             app:layout_constraintTop_toBottomOf="@id/user_id"
