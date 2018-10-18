@@ -14,7 +14,7 @@ import java.util.*
 class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener) : RecyclerView.Adapter<ViewHolder>() {
 
     interface ArticleRecyclerListener {
-        fun onRecyclerClickedListener(view: View, position: Int)
+        fun onRecyclerClickedListener(view: View, article: QiitaArticle, position: Int)
     }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -41,13 +41,15 @@ class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val article = articleList.getOrNull(position)
 
-        // 変数の格納
-        viewHolder.getBinding().setVariable(BR.article, article)
+        if (article != null) {
+            // 変数の格納
+            viewHolder.getBinding().setVariable(BR.article, article)
 
-        // タップ時の処理
-        viewHolder.getView().setOnClickListener{
-            Timber.d("Article of position $position is clicked")
-            listener.onRecyclerClickedListener(it, position)
+            // タップ時の処理
+            viewHolder.getView().setOnClickListener {
+                Timber.d("Article of position $position is clicked")
+                listener.onRecyclerClickedListener(it, article, position)
+            }
         }
     }
 

@@ -109,15 +109,16 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
      * 記事タップ時に呼ばれる
      *
      * @param view タップしたビュー
+     * @param article 記事
      * @param position 要素番号
      */
-    override fun onRecyclerClickedListener(view: View, position: Int) {
+    override fun onRecyclerClickedListener(view: View, article: QiitaArticle, position: Int) {
         // タップした記事のURLへ遷移
         val tabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                 .build()
-        tabsIntent.launchUrl(context!!, Uri.parse("https://qiita.com/"))
+        tabsIntent.launchUrl(context!!, Uri.parse(article.url))
     }
 
 }
