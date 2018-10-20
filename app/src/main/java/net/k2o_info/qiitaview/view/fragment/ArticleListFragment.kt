@@ -1,5 +1,7 @@
 package net.k2o_info.qiitaview.view.fragment
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.net.Uri
@@ -16,7 +18,9 @@ import android.view.View
 import android.view.ViewGroup
 import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.databinding.FragmentArticleListBinding
+import net.k2o_info.qiitaview.model.pojo.QiitaArticle
 import net.k2o_info.qiitaview.view.ui.ArticleRecyclerAdapter
+import net.k2o_info.qiitaview.viewmodel.fragment.ArticleListViewModel
 import timber.log.Timber
 
 /**
@@ -71,10 +75,27 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
         val recyclerAdapter = ArticleRecyclerAdapter(context!!, this)
         recyclerView.adapter = recyclerAdapter
 
+        // ViewModelの設定
+        val viewModel = ViewModelProviders.of(this).get(ArticleListViewModel::class.java)
+        viewModel.getArticleList().observe(this, Observer { list: List<QiitaArticle>? ->
+
+            // リストの更新があった場合にrecyclerAdapterをアップデート
+            if (list != null && list.isNotEmpty()) {
+                binding.emptyView.visibility    = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
+                recyclerAdapter.updateItems(list)
+            } else {
+                // 要素が空の場合は空のビューを表示
+                binding.recyclerView.visibility = View.GONE
+                binding.emptyView.visibility    = View.VISIBLE
+            }
+        })
+
         // スワイプダウン時のリフレッシュ処理
         val swipeContainer: SwipeRefreshLayout = binding.swipeContainer
         swipeContainer.setOnRefreshListener {
             Timber.d("onRefresh")
+            viewModel.refreshArticleList()
             swipeContainer.isRefreshing = !swipeContainer.isRefreshing
         }
 
@@ -94,15 +115,16 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
      * 記事タップ時に呼ばれる
      *
      * @param view タップしたビュー
+     * @param article 記事
      * @param position 要素番号
      */
-    override fun onRecyclerClickedListener(view: View, position: Int) {
+    override fun onRecyclerClickedListener(view: View, article: QiitaArticle, position: Int) {
         // タップした記事のURLへ遷移
         val tabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                 .build()
-        tabsIntent.launchUrl(context!!, Uri.parse("https://qiita.com/"))
+        tabsIntent.launchUrl(context!!, Uri.parse(article.url))
     }
 
 }
