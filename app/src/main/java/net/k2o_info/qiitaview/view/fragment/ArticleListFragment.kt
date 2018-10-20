@@ -80,8 +80,14 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
         viewModel.getArticleList().observe(this, Observer { list: List<QiitaArticle>? ->
 
             // リストの更新があった場合にrecyclerAdapterをアップデート
-            if (list != null) {
+            if (list != null && list.isNotEmpty()) {
+                binding.emptyView.visibility    = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
                 recyclerAdapter.updateItems(list)
+            } else {
+                // 要素が空の場合は空のビューを表示
+                binding.recyclerView.visibility = View.GONE
+                binding.emptyView.visibility    = View.VISIBLE
             }
         })
 
