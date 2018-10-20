@@ -9,6 +9,7 @@ class QiitaArticle (
         val likesCount: Int,
         val commentsCount: Int,
         val user: QiitaUser,
+        val tags: List<QiitaTag>,
         val createdAt: Date,
         val updatedAt: Date
 )
