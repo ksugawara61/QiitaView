@@ -40,6 +40,7 @@ class AppRepository(application: Application) {
                 .build()
 
         val gson = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)  // JSONのスネークケースをキャメルケースに変換
                 .create()
 
@@ -67,7 +68,6 @@ class AppRepository(application: Application) {
         call.enqueue(object : Callback<List<QiitaArticle>> {
             override fun onResponse(call: Call<List<QiitaArticle>>, response: retrofit2.Response<List<QiitaArticle>>) {
                 if (response.isSuccessful && response.body() != null) {
-                    Timber.d("success: ${response.body()}")
                     mutableArticleList.postValue(response.body())
                 }
             }

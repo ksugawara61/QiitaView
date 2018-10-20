@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="net.k2o_info.qiitaview.util.TimeUtil"/>
         <variable
             name="article"
             type="net.k2o_info.qiitaview.model.pojo.QiitaArticle"/>
@@ -45,7 +46,7 @@
 
         <TextView
             android:id="@+id/created_at"
-            android:text="2時間前"
+            android:text="@{TimeUtil.dateToCreatedAt(article.createdAt)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"

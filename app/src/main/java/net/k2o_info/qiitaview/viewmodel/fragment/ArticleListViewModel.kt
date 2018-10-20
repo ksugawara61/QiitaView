@@ -18,14 +18,14 @@ class ArticleListViewModel(application: Application): AndroidViewModel(applicati
      * コンストラクタ
      */
     init {
-        articleList = appRepository.getArticle(mutableArticleList, 1, 20, null)
+        articleList = appRepository.getArticle(mutableArticleList, 1, 40, null)
     }
 
     /**
      * 記事リストをリフレッシュ
      */
     fun refreshArticleList() {
-        articleList = appRepository.getArticle(mutableArticleList, 1, 20, null)
+        articleList = appRepository.getArticle(mutableArticleList, 1, 40, null)
     }
 
     /**
