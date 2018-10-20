@@ -1,15 +1,17 @@
 package net.k2o_info.qiitaview.view.ui
 
 import android.content.Context
+import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.flexbox.FlexboxLayout
 import net.k2o_info.qiitaview.BR
 import net.k2o_info.qiitaview.R
+import net.k2o_info.qiitaview.databinding.TagItemBinding
 import net.k2o_info.qiitaview.model.pojo.QiitaArticle
 import timber.log.Timber
-import java.util.*
 
 class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener) : RecyclerView.Adapter<ViewHolder>() {
 
