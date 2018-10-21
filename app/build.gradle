@@ -19,8 +19,8 @@ android {
         applicationId "net.k2o_info.qiitaview"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10000
-        versionName "1.0.0"
+        versionCode 10100
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
