@@ -21,9 +21,15 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val BOTTOM_NAV_ARTICLE = 0
-        const val BOTTOM_NAV_SETTING = 1
+        const val BOTTOM_NAV_TAG     = 1
+        const val BOTTOM_NAV_SETTING = 2
     }
 
+    /**
+     * アクティビティ起動時に呼ばれる
+     *
+     * @param savedInstanceState
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -35,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         // ボトムナビゲーションバーの設定
         val bnb: BottomNavigationBar = binding.bnb
         bnb.addItem(BottomNavigationItem(R.drawable.ic_rss_feed_black_24dp, getString(R.string.nav_feed)))
+                .addItem(BottomNavigationItem(R.drawable.ic_style_black_24dp, getString(R.string.nav_tag)))
                 .addItem(BottomNavigationItem(R.drawable.ic_settings_black_24dp, getString(R.string.nav_setting)))
                 .initialise()
         bnb.setTabSelectedListener(object:BottomNavigationBar.OnTabSelectedListener {
@@ -51,6 +58,9 @@ class MainActivity : AppCompatActivity() {
                         val transaction = supportFragmentManager.beginTransaction()
                         transaction.replace(binding.fragmentContainer.id, articleListFragment)
                         transaction.commit()
+                    }
+                    BOTTOM_NAV_TAG -> {
+
                     }
                     BOTTOM_NAV_SETTING -> {
                         val transaction = supportFragmentManager.beginTransaction()

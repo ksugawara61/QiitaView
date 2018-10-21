@@ -3,6 +3,7 @@
 
     <!-- ボトムナビゲーションバーの文字列 -->
     <string name="nav_feed">フィード</string>
+    <string name="nav_tag">タグ</string>
     <string name="nav_setting">設定</string>
 
     <!-- 設定画面用 -->
