@@ -17,14 +17,14 @@ import timber.log.Timber
  * @author katsuya
  * @since 1.1.0
  */
-class TagRecyclerAdapter(context: Context/*, listener: ArticleRecyclerListener*/) : RecyclerView.Adapter<ViewHolder>() {
+class TagRecyclerAdapter(context: Context, listener: TagRecyclerListener) : RecyclerView.Adapter<ViewHolder>() {
 
-    /*interface ArticleRecyclerListener {
-        fun onRecyclerClickedListener(view: View, article: QiitaArticle, position: Int)
-    }*/
+    interface TagRecyclerListener {
+        fun onRecyclerClickedListener(view: View, tag: QiitaTag, position: Int)
+    }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    //private val listener: ArticleRecyclerListener = listener
+    private val listener: TagRecyclerListener = listener
     private var tagList: List<QiitaTag> = emptyList()
 
     /**
@@ -53,8 +53,8 @@ class TagRecyclerAdapter(context: Context/*, listener: ArticleRecyclerListener*/
 
             // タップ時の処理
             viewHolder.getView().setOnClickListener {
-                Timber.d("Article of position $position is clicked")
-//                listener.onRecyclerClickedListener(it, article, position)
+                Timber.d("Tag of position $position is clicked")
+                listener.onRecyclerClickedListener(it, tag, position)
             }
         }
     }

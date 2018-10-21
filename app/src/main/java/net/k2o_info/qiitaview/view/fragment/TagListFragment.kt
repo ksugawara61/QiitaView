@@ -3,6 +3,7 @@ package net.k2o_info.qiitaview.view.fragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,6 +17,7 @@ import android.view.ViewGroup
 import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.databinding.FragmentTagListBinding
 import net.k2o_info.qiitaview.model.pojo.QiitaTag
+import net.k2o_info.qiitaview.view.activity.TagDetailActivity
 import net.k2o_info.qiitaview.view.ui.TagRecyclerAdapter
 import net.k2o_info.qiitaview.viewmodel.fragment.TagListViewModel
 import timber.log.Timber
@@ -26,7 +28,7 @@ import timber.log.Timber
  * @author katsuya
  * @since 1.0.0
  */
-class TagListFragment : Fragment()/*, ArticleRecyclerAdapter.ArticleRecyclerListener*/ {
+class TagListFragment : Fragment(), TagRecyclerAdapter.TagRecyclerListener {
 
     companion object {
 
@@ -69,7 +71,7 @@ class TagListFragment : Fragment()/*, ArticleRecyclerAdapter.ArticleRecyclerList
         recyclerView.addItemDecoration(dividerItemDecoration)
 
         // アダプターを設定
-        val recyclerAdapter = TagRecyclerAdapter(context!!)
+        val recyclerAdapter = TagRecyclerAdapter(context!!, this)
         recyclerView.adapter = recyclerAdapter
 
         // ViewModelの設定
@@ -109,19 +111,18 @@ class TagListFragment : Fragment()/*, ArticleRecyclerAdapter.ArticleRecyclerList
     }
 
     /**
-     * 記事タップ時に呼ばれる
+     * タグタップ時に呼ばれる
      *
      * @param view タップしたビュー
-     * @param article 記事
+     * @param tag タグ
      * @param position 要素番号
      */
-    /*override fun onRecyclerClickedListener(view: View, article: QiitaArticle, position: Int) {
-        // タップした記事のURLへ遷移
-        val tabsIntent = CustomTabsIntent.Builder()
-                .setShowTitle(true)
-                .setToolbarColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                .build()
-        tabsIntent.launchUrl(context!!, Uri.parse(article.url))
-    }*/
+    override fun onRecyclerClickedListener(view: View, tag: QiitaTag, position: Int) {
+        // タップしたタグの記事リストへ遷移
+        Timber.d("${tag.id} that is position $position was clicked")
+        val intent = Intent(activity, TagDetailActivity::class.java)
+        intent.putExtra(TagDetailActivity.TITLE_TAG_ID, tag.id)
+        startActivity(intent)
+    }
 
 }
