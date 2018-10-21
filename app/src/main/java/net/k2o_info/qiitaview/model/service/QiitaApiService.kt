@@ -24,4 +24,6 @@ interface QiitaApiService {
             @Query(value = "query", encoded = true) query: String?
     ): Call<List<QiitaArticle>>
 
+
+
 }
