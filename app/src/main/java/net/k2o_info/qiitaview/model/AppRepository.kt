@@ -26,6 +26,18 @@ import timber.log.Timber
  */
 class AppRepository(application: Application) {
 
+    companion object {
+        private var instance: AppRepository? = null
+
+        fun getInstance(application: Application): AppRepository {
+            if (instance == null) {
+                instance  = AppRepository(application)
+            }
+
+            return instance!!
+        }
+    }
+
     private val qiitaApiService: QiitaApiService
 
     /**

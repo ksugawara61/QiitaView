@@ -9,7 +9,7 @@ import net.k2o_info.qiitaview.model.pojo.QiitaArticle
 
 class ArticleListViewModel(application: Application): AndroidViewModel(application) {
 
-    private val appRepository: AppRepository = AppRepository(application)
+    private val appRepository: AppRepository = AppRepository.getInstance(application)
     private val mutableArticleList: MutableLiveData<List<QiitaArticle>> = MutableLiveData()
     private var articleList: LiveData<List<QiitaArticle>>
 

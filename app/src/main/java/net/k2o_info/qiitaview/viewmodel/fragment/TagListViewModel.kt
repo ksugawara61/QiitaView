@@ -21,7 +21,7 @@ class TagListViewModel(application: Application): AndroidViewModel(application) 
         const val DEFAULT_SORT     = "count"
     }
 
-    private val appRepository: AppRepository = AppRepository(application)
+    private val appRepository: AppRepository = AppRepository.getInstance(application)
     private val mutableTagList: MutableLiveData<List<QiitaTag>> = MutableLiveData()
     private var tagList: LiveData<List<QiitaTag>>
 
