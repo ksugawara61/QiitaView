@@ -17,6 +17,7 @@ object ImageViewBindingAdapter {
      *
      * @param view ビュー
      * @param url 画像のURL
+     * @param error エラー時の画像
      */
     @JvmStatic
     @BindingAdapter(value = ["imageUrl", "error"])

@@ -91,7 +91,7 @@
 
         <TextView
             android:id="@+id/likes_count"
-            android:text="@{Integer.toString(article.likesCount)}"
+            android:text="@{Integer.toString(article.likesCount) + ` likes`}"
             android:drawableStart="@drawable/ic_favorite_border_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
@@ -111,7 +111,7 @@
 
         <TextView
             android:id="@+id/comments_count"
-            android:text="@{Integer.toString(article.commentsCount)}"
+            android:text="@{Integer.toString(article.commentsCount) + ` comments`}"
             android:drawableStart="@drawable/ic_comment_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"

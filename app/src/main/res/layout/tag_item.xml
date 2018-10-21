@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/followers_count"
-            android:text="@{Integer.toString(tag.followersCount)}"
+            android:text="@{Integer.toString(tag.followersCount) + ` followers`}"
             android:drawableStart="@drawable/ic_person_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/items_count"
-            android:text="@{Integer.toString(tag.itemsCount)}"
+            android:text="@{Integer.toString(tag.itemsCount) + ` items`}"
             android:drawableStart="@drawable/ic_insert_drive_file_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
