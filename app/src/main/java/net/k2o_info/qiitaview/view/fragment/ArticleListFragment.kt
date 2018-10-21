@@ -1,5 +1,6 @@
 package net.k2o_info.qiitaview.view.fragment
 
+import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -16,6 +17,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import net.k2o_info.qiitaview.MainApplication
 import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.databinding.FragmentArticleListBinding
 import net.k2o_info.qiitaview.model.pojo.QiitaArticle
@@ -33,13 +35,19 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
 
     companion object {
 
+        const val KEY_TAG_QUERY = "tag_qeury"
+
         /**
          * インスタンスの生成
          *
          * @return フラグメント
          */
-        fun newInstance(): ArticleListFragment {
-            return ArticleListFragment()
+        fun newInstance(query: String?): ArticleListFragment {
+            val articleListFragment = ArticleListFragment()
+            val bundle = Bundle()
+            bundle.putString(KEY_TAG_QUERY, query)
+            articleListFragment.arguments = bundle
+            return articleListFragment
         }
 
     }
@@ -75,8 +83,17 @@ class ArticleListFragment : Fragment(), ArticleRecyclerAdapter.ArticleRecyclerLi
         val recyclerAdapter = ArticleRecyclerAdapter(context!!, this)
         recyclerView.adapter = recyclerAdapter
 
+        // クエリを取得
+        val bundle = arguments
+        var query: String? = null
+        if (bundle != null) {
+            query = bundle.getString(KEY_TAG_QUERY)
+        }
+
         // ViewModelの設定
-        val viewModel = ViewModelProviders.of(this).get(ArticleListViewModel::class.java)
+        val viewModel = ViewModelProviders
+                .of(this, ArticleListViewModel.Factory(MainApplication.getInstance() as Application, query))
+                .get(ArticleListViewModel::class.java)
         viewModel.getArticleList().observe(this, Observer { list: List<QiitaArticle>? ->
 
             // リストの更新があった場合にrecyclerAdapterをアップデート
