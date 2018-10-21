@@ -17,7 +17,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "net.k2o_info.qiitaview"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 10000
         versionName "1.0.0"
