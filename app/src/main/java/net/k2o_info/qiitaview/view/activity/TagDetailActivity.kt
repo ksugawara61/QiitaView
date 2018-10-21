@@ -17,7 +17,8 @@ import net.k2o_info.qiitaview.view.fragment.ArticleListFragment
 class TagDetailActivity : AppCompatActivity() {
 
     companion object {
-        public const val TITLE_TAG_ID = "tag_id"
+        const val TITLE_TAG_ID = "tag_id"
+        const val QUERY_PREFIX = "tag:"
     }
 
     /**
@@ -41,7 +42,7 @@ class TagDetailActivity : AppCompatActivity() {
         }
 
         // 記事リストのフラグメントを設定
-        val articleListFragment = ArticleListFragment()
+        val articleListFragment = ArticleListFragment.newInstance(QUERY_PREFIX + title)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.fragmentContainer.id, articleListFragment)
         transaction.commit()
