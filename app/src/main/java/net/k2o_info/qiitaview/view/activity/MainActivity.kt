@@ -9,6 +9,7 @@ import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.databinding.ActivityMainBinding
 import net.k2o_info.qiitaview.view.fragment.ArticleListFragment
 import net.k2o_info.qiitaview.view.fragment.SettingFragment
+import net.k2o_info.qiitaview.view.fragment.TagListFragment
 import timber.log.Timber
 
 /**
@@ -21,20 +22,28 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val BOTTOM_NAV_ARTICLE = 0
-        const val BOTTOM_NAV_SETTING = 1
+        const val BOTTOM_NAV_TAG     = 1
+        const val BOTTOM_NAV_SETTING = 2
     }
 
+    /**
+     * アクティビティ起動時に呼ばれる
+     *
+     * @param savedInstanceState
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // フラグメントの設定
         val articleListFragment = ArticleListFragment()
+        val tagListFragment     = TagListFragment()
         val settingFragment     = SettingFragment()
 
         // ボトムナビゲーションバーの設定
         val bnb: BottomNavigationBar = binding.bnb
         bnb.addItem(BottomNavigationItem(R.drawable.ic_rss_feed_black_24dp, getString(R.string.nav_feed)))
+                .addItem(BottomNavigationItem(R.drawable.ic_style_black_24dp, getString(R.string.nav_tag)))
                 .addItem(BottomNavigationItem(R.drawable.ic_settings_black_24dp, getString(R.string.nav_setting)))
                 .initialise()
         bnb.setTabSelectedListener(object:BottomNavigationBar.OnTabSelectedListener {
@@ -50,6 +59,11 @@ class MainActivity : AppCompatActivity() {
                     BOTTOM_NAV_ARTICLE -> {
                         val transaction = supportFragmentManager.beginTransaction()
                         transaction.replace(binding.fragmentContainer.id, articleListFragment)
+                        transaction.commit()
+                    }
+                    BOTTOM_NAV_TAG -> {
+                        val transaction = supportFragmentManager.beginTransaction()
+                        transaction.replace(binding.fragmentContainer.id, tagListFragment)
                         transaction.commit()
                     }
                     BOTTOM_NAV_SETTING -> {

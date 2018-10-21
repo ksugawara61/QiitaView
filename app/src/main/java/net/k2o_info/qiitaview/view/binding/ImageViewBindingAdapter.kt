@@ -1,6 +1,7 @@
 package net.k2o_info.qiitaview.view.binding
 
 import android.databinding.BindingAdapter
+import android.graphics.drawable.Drawable
 import android.support.v4.content.res.ResourcesCompat
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
@@ -16,12 +17,12 @@ object ImageViewBindingAdapter {
      *
      * @param view ビュー
      * @param url 画像のURL
+     * @param error エラー時の画像
      */
     @JvmStatic
-    @BindingAdapter(value = ["imageUrl"])
-    fun loadImage(view: ImageView, url: String?) {
+    @BindingAdapter(value = ["imageUrl", "error"])
+    fun loadImage(view: ImageView, url: String?, error: Drawable) {
         val context = view.context
-        val error = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_person_blue_grey_400_24dp, null)
         if (url != null && !url.isEmpty()) {
             Picasso.with(context).load(url).placeholder(error).error(error).into(view)
         } else {

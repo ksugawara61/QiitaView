@@ -7,6 +7,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.model.pojo.QiitaArticle
+import net.k2o_info.qiitaview.model.pojo.QiitaTag
 import net.k2o_info.qiitaview.model.service.QiitaApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -24,6 +25,18 @@ import timber.log.Timber
  * @since 1.0.0
  */
 class AppRepository(application: Application) {
+
+    companion object {
+        private var instance: AppRepository? = null
+
+        fun getInstance(application: Application): AppRepository {
+            if (instance == null) {
+                instance  = AppRepository(application)
+            }
+
+            return instance!!
+        }
+    }
 
     private val qiitaApiService: QiitaApiService
 
@@ -78,6 +91,32 @@ class AppRepository(application: Application) {
         })
 
         return mutableArticleList
+    }
+
+    /**
+     * Qiitaのタグ一覧を取得
+     *
+     * @param mutableTagList タグリスト
+     * @param page ページ番号
+     * @param perPage ページ辺りの記事数
+     * @param sort 並び順 (countで投稿数順、nameで名前順)
+     * @return タグリスト
+     */
+    fun getTag(mutableTagList: MutableLiveData<List<QiitaTag>>, page: Int, perPage: Int, sort: String): LiveData<List<QiitaTag>> {
+        val call = qiitaApiService.getTags(page, perPage, sort)
+        call.enqueue(object : Callback<List<QiitaTag>> {
+            override fun onResponse(call: Call<List<QiitaTag>>, response: retrofit2.Response<List<QiitaTag>>) {
+                if (response.isSuccessful && response.body() != null) {
+                    mutableTagList.postValue(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<List<QiitaTag>>, t: Throwable) {
+                Timber.e(t.message)
+            }
+        })
+
+        return mutableTagList
     }
 
 }
