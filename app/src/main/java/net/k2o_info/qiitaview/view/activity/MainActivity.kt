@@ -9,6 +9,7 @@ import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.databinding.ActivityMainBinding
 import net.k2o_info.qiitaview.view.fragment.ArticleListFragment
 import net.k2o_info.qiitaview.view.fragment.SettingFragment
+import net.k2o_info.qiitaview.view.fragment.TagListFragment
 import timber.log.Timber
 
 /**
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         // フラグメントの設定
         val articleListFragment = ArticleListFragment()
+        val tagListFragment     = TagListFragment()
         val settingFragment     = SettingFragment()
 
         // ボトムナビゲーションバーの設定
@@ -60,7 +62,9 @@ class MainActivity : AppCompatActivity() {
                         transaction.commit()
                     }
                     BOTTOM_NAV_TAG -> {
-
+                        val transaction = supportFragmentManager.beginTransaction()
+                        transaction.replace(binding.fragmentContainer.id, tagListFragment)
+                        transaction.commit()
                     }
                     BOTTOM_NAV_SETTING -> {
                         val transaction = supportFragmentManager.beginTransaction()
