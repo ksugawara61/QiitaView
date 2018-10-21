@@ -8,17 +8,24 @@ import android.view.ViewGroup
 import net.k2o_info.qiitaview.BR
 import net.k2o_info.qiitaview.R
 import net.k2o_info.qiitaview.model.pojo.QiitaArticle
+import net.k2o_info.qiitaview.model.pojo.QiitaTag
 import timber.log.Timber
 
-class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener) : RecyclerView.Adapter<ViewHolder>() {
+/**
+ * タグリスト用アダプター
+ *
+ * @author katsuya
+ * @since 1.1.0
+ */
+class TagRecyclerAdapter(context: Context, listener: TagRecyclerListener) : RecyclerView.Adapter<ViewHolder>() {
 
-    interface ArticleRecyclerListener {
-        fun onRecyclerClickedListener(view: View, article: QiitaArticle, position: Int)
+    interface TagRecyclerListener {
+        fun onRecyclerClickedListener(view: View, tag: QiitaTag, position: Int)
     }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private val listener: ArticleRecyclerListener = listener
-    private var articleList: List<QiitaArticle> = emptyList()
+    private val listener: TagRecyclerListener = listener
+    private var tagList: List<QiitaTag> = emptyList()
 
     /**
      * 新規ViewHolderが渡されたときに呼ばれる
@@ -28,7 +35,7 @@ class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener
      * @return 新しいViewHolder
      */
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(inflater.inflate(R.layout.article_item, viewGroup, false))
+        return ViewHolder(inflater.inflate(R.layout.tag_item, viewGroup, false))
     }
 
     /**
@@ -38,16 +45,16 @@ class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener
      * @param position 要素番号
      */
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val article = articleList.getOrNull(position)
+        val tag = tagList.getOrNull(position)
 
-        if (article != null) {
+        if (tag != null) {
             // 変数の格納
-            viewHolder.getBinding().setVariable(BR.article, article)
+            viewHolder.getBinding().setVariable(BR.tag, tag)
 
             // タップ時の処理
             viewHolder.getView().setOnClickListener {
-                Timber.d("Article of position $position is clicked")
-                listener.onRecyclerClickedListener(it, article, position)
+                Timber.d("Tag of position $position is clicked")
+                listener.onRecyclerClickedListener(it, tag, position)
             }
         }
     }
@@ -58,14 +65,16 @@ class ArticleRecyclerAdapter(context: Context, listener: ArticleRecyclerListener
      * @return 要素数
      */
     override fun getItemCount(): Int {
-        return articleList.size
+        return tagList.size
     }
 
     /**
      * 要素のアップデート
+     *
+     * @param tagList タグリスト
      */
-    fun updateItems(articleList: List<QiitaArticle>) {
-        this.articleList = articleList
+    fun updateItems(tagList: List<QiitaTag>) {
+        this.tagList = tagList
         notifyDataSetChanged()
     }
 

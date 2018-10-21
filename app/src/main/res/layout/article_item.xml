@@ -23,6 +23,7 @@
             android:layout_height="50dp"
             android:layout_margin="@dimen/layout_margin_middle"
             app:imageUrl="@{article.user.profileImageUrl}"
+            app:error="@{@drawable/ic_person_blue_grey_400_24dp}"
             app:riv_corner_radius="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -90,7 +91,7 @@
 
         <TextView
             android:id="@+id/likes_count"
-            android:text="@{Integer.toString(article.likesCount)}"
+            android:text="@{Integer.toString(article.likesCount) + ` likes`}"
             android:drawableStart="@drawable/ic_favorite_border_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
@@ -110,7 +111,7 @@
 
         <TextView
             android:id="@+id/comments_count"
-            android:text="@{Integer.toString(article.commentsCount)}"
+            android:text="@{Integer.toString(article.commentsCount) + ` comments`}"
             android:drawableStart="@drawable/ic_comment_grey_700_24dp"
             android:drawablePadding="@dimen/layout_padding_short"
             android:layout_width="0dp"
